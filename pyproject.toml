@@ -1,0 +1,58 @@
+[project]
+name = "related-work-agent"
+version = "0.1.0"
+description = "Auto-generate Related Work sections from academic PDFs with RAG + LLM"
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+dependencies = [
+    "pymupdf>=1.23.0",
+    "langchain>=0.2.0",
+    "langchain-community>=0.2.0",
+    "langchain-text-splitters>=0.2.0",
+    "sentence-transformers>=3.0.0",
+    "transformers>=4.40.0",
+    "torch>=2.0.0",
+    "chromadb>=0.5.0",
+    "pydantic-settings>=2.0.0",
+    "pyyaml>=6.0",
+    "numpy>=1.26.0",
+    "tqdm>=4.66.0",
+    "loguru>=0.7.0",
+    "rich>=13.0.0",
+    "aiofiles>=23.0.0",
+    "tenacity>=8.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+# LLM providers — install what you need
+anthropic = ["anthropic>=0.28.0", "langchain-anthropic>=0.1.0"]
+openai = ["openai>=1.30.0", "langchain-openai>=0.1.0"]
+deepseek = ["openai>=1.30.0"]
+dashscope = ["dashscope>=1.17.0", "openai>=1.30.0"]
+ollama = ["langchain-community>=0.2.0"]
+# Optional: ColBERT reranking (slower indexing, higher quality)
+colbert = ["ragatouille>=0.0.9"]
+# Cross-encoder reranker (default, lightweight)
+reranker = ["sentence-transformers>=3.0.0"]
+# All providers
+all = [
+    "anthropic>=0.28.0",
+    "langchain-anthropic>=0.1.0",
+    "openai>=1.30.0",
+    "langchain-openai>=0.1.0",
+    "dashscope>=1.17.0",
+    "ragatouille>=0.0.9",
+]
+
+[project.scripts]
+rwa = "src.pipeline:main"
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["src*"]

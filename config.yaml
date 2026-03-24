@@ -1,0 +1,80 @@
+# ============================================================
+# Related Work Agent — 主配置文件
+# 切换模型只需修改此处，代码无需改动
+# ============================================================
+
+# ── LLM 配置（生成 Related Work 用）──────────────────────────
+llm:
+  # 可选 provider: anthropic | openai | azure_openai | deepseek | dashscope | ollama
+  provider: "dashscope"
+  # 对应 provider 的模型名称，示例：
+  #   anthropic   → claude-opus-4-5 / claude-sonnet-4-5
+  #   openai      → gpt-4o / gpt-4-turbo
+  #   deepseek    → deepseek-chat / deepseek-reasoner
+  #   dashscope   → qwen-max / qwen-plus / qwen-turbo
+  #   ollama      → llama3 / mistral / qwen2
+  model: "qwen3-max-2026-01-23"
+  max_tokens: 4096
+  temperature: 0.3
+  # Azure OpenAI 专用（provider=azure_openai 时生效）
+  azure_endpoint: ""
+  azure_api_version: "2024-02-01"
+  azure_deployment: ""
+  # Ollama 专用（本地运行，无需 API Key）
+  ollama_base_url: "http://localhost:11434"
+
+# ── 评分 LLM（可与生成 LLM 不同，建议用更快/便宜的模型）────
+scorer_llm:
+  provider: "dashscope"
+  model: "qwen3-max-2026-01-23"
+  max_tokens: 1024
+  temperature: 0.0
+  azure_endpoint: ""
+  azure_api_version: "2024-02-01"
+  azure_deployment: ""
+  ollama_base_url: "http://localhost:11434"
+
+# ── 数据路径（相对项目根目录）────────────────────────────────
+data:
+  background_papers_dir: "data/background_papers"
+  comparison_papers_dir: "data/comparison_papers"
+  venue_style_papers_dir: "data/venue_style_papers"
+  my_paper_dir: "data/my_paper"
+
+# ── Embedding & 检索模型 ─────────────────────────────────────
+retrieval:
+  embedding_model: "allenai/specter2_base"
+  # ColBERT 配置（可选，设 use_colbert: true 启用）
+  use_colbert: false
+  colbert_model: "colbert-ir/colbertv2.0"
+  # Cross-Encoder 精排（默认启用，速度快）
+  reranker_model: "cross-encoder/ms-marco-MiniLM-L-6-v2"
+  dense_top_k: 100
+  colbert_top_k: 30
+  reranker_top_k: 15
+
+# ── 分块参数 ─────────────────────────────────────────────────
+chunking:
+  default_chunk_size: 400
+  default_overlap: 50
+  method_chunk_size: 500
+  method_overlap: 80
+
+# ── 生成参数 ─────────────────────────────────────────────────
+generation:
+  max_iterations: 3
+  target_venue: "IEEE TMC"
+  language: "english"
+  latex_bib_style: "IEEEtran"
+  # 是否使用 LLM 自动精修 BibTeX 条目（补全作者、期刊、DOI 等信息）
+  refine_bib: true
+
+# ── 并行参数 ─────────────────────────────────────────────────
+parallel:
+  max_pdf_workers: 8
+  embedding_batch_size: 64
+
+# ── 输出 ─────────────────────────────────────────────────────
+output:
+  dir: "outputs"
+  save_all_iterations: true

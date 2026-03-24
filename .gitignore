@@ -1,0 +1,24 @@
+# Environment
+.env
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Data & Indexes (large files)
+vectordb/chroma_db/
+vectordb/colbert_index/
+data/background_papers/*.pdf
+data/comparison_papers/*.pdf
+data/venue_style_papers/*.pdf
+data/my_paper/*
+!data/**/.gitkeep
+
+# Outputs
+outputs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
