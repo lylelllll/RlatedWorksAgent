@@ -12,7 +12,23 @@ data/background_papers/*.pdf
 data/comparison_papers/*.pdf
 data/venue_style_papers/*.pdf
 data/my_paper/*
+data/*
 !data/**/.gitkeep
+
+# AcademicAgent data directories
+data/sqlite/*
+data/chroma/*
+data/graphs/*
+data/uploads/*
+!data/sqlite/.gitkeep
+!data/chroma/.gitkeep
+!data/graphs/.gitkeep
+!data/uploads/.gitkeep
+
+# Frontend
+node_modules/
+frontend/dist/
+frontend/.vite/
 
 # Outputs
 outputs/

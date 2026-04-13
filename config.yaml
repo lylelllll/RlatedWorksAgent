@@ -78,3 +78,52 @@ parallel:
 output:
   dir: "outputs"
   save_all_iterations: true
+
+# ============================================================
+# Review Advisor 配置（新增）
+# ============================================================
+review_advisor:
+  # 输入
+  input_dir: "data/review_input"
+
+  # 批注提取
+  annotation:
+    # 支持的 PDF 批注类型（pymupdf annotation type names）
+    supported_types:
+      - "Text"           # Sticky note（最常见，审稿人的评语气泡）
+      - "Highlight"      # 高亮（通常配合 Text 使用）
+      - "Underline"      # 下划线
+      - "StrikeOut"      # 删除线（审稿人建议删除的内容）
+      - "FreeText"       # 内嵌文本批注
+      - "Squiggly"       # 波浪线（通常标记有问题的表达）
+    # 高亮批注若无配套 Text 评语，是否仍提取（仅凭上下文推断意图）
+    extract_highlight_without_comment: true
+    # 上下文窗口：提取批注时，前后各取多少个句子作为上下文
+    context_sentences_before: 3
+    context_sentences_after: 3
+
+  # 意图分类
+  intent_classification:
+    # 并行分类的批注数量（每批）
+    batch_size: 10
+
+  # 检索（复用现有 retrieval 配置，此处可覆盖）
+  retrieval:
+    dense_top_k: 50         # 针对每条批注的检索数量（比生成任务少，精度优先）
+    colbert_top_k: 15
+    cross_encoder_top_k: 5  # 最终只取 top-5 支撑证据，避免 prompt 过长
+
+  # 生成
+  generation:
+    # 是否生成 before/after 对比版本的修改建议
+    generate_diff: true
+    # 是否同时生成中文版报告
+    generate_chinese_report: false
+    # 每条建议的最大 token 数
+    max_tokens_per_suggestion: 800
+
+  # 输出
+  output:
+    dir: "outputs"
+    # 是否为每条批注单独生成 per_comment/ 文件
+    save_per_comment: true

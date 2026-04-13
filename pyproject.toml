@@ -24,6 +24,7 @@ dependencies = [
     "aiofiles>=23.0.0",
     "tenacity>=8.0.0",
     "python-dotenv>=1.0.0",
+    "rapidfuzz>=3.6.0",
 ]
 
 [project.optional-dependencies]
@@ -49,6 +50,7 @@ all = [
 
 [project.scripts]
 rwa = "src.pipeline:main"
+rwa-review = "src.review_advisor.pipeline:main"
 
 [build-system]
 requires = ["setuptools>=68.0"]
