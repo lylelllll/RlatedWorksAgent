@@ -43,3 +43,33 @@ async def get_project_conversations(db: AsyncSession, project_id: str):
         .order_by(models.Conversation.created_at.asc())
     )
     return result.scalars().all()
+
+# User Config
+async def get_user_config(db: AsyncSession):
+    result = await db.execute(select(models.UserConfig).limit(1))
+    db_obj = result.scalars().first()
+    if not db_obj:
+        # Default initialization
+        db_obj = models.UserConfig(
+            llm_provider="openai",
+            model_name="gpt-4o",
+            embedding_model="BAAI/bge-m3"
+        )
+        db.add(db_obj)
+        await db.commit()
+        await db.refresh(db_obj)
+    return db_obj
+
+async def update_user_config(db: AsyncSession, provider: str = None, api_key: str = None, model_name: str = None, embedding_model: str = None):
+    db_obj = await get_user_config(db)
+    if provider is not None:
+        db_obj.llm_provider = provider
+    if api_key is not None:
+        db_obj.api_key = api_key
+    if model_name is not None:
+        db_obj.model_name = model_name
+    if embedding_model is not None:
+        db_obj.embedding_model = embedding_model
+    await db.commit()
+    await db.refresh(db_obj)
+    return db_obj

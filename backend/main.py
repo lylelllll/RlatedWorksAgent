@@ -4,6 +4,7 @@ AcademicAgent Backend — FastAPI 入口
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from api.routes import config as config_router
 
 app = FastAPI(
     title="AcademicAgent API",
@@ -23,6 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(config_router.router, prefix="/api/config", tags=["Config"])
 
 @app.get("/health")
 async def health_check():
