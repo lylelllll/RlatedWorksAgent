@@ -8,7 +8,7 @@
 ## 当前状态
 
 ```
-当前阶段：Phase 1 — Step 1.2（数据库初始化）
+当前阶段：Phase 1 — Step 1.3（设置页面与LLM配置）
 状态：🔲 未开始
 ```
 
@@ -31,7 +31,7 @@
 | Step | 名称 | 状态 | 完成日期 |
 |------|------|------|----------|
 | 1.1 | 项目初始化与目录结构 | ✅ 已完成 | 2026-04-13 |
-| 1.2 | 数据库初始化 | 🔲 未开始 | — |
+| 1.2 | 数据库初始化 | ✅ 已完成 | 2026-04-14 |
 | 1.3 | 设置页面与LLM配置 | 🔲 未开始 | — |
 | 1.4 | 基础对话界面（无Agent） | 🔲 未开始 | — |
 | 1.5 | 论文编辑器页面（骨架） | 🔲 未开始 | — |
@@ -92,6 +92,7 @@
 |------|----------|
 | 2026-04-13 | Step 1.1 完成：前端(Vite+React+TS+Tailwind+shadcn/ui)、后端(FastAPI)骨架搭建完成 |
 | — | 文档初始化 |
+| 2026-04-14 | Step 1.2 完成：实现 SQLAlchemy ORM Models、database async session 配置、基础 CRUD 函数，并通过了初始化测试。 |
 
 ---
 
@@ -113,13 +114,13 @@
 
 ---
 
-### Step 1.2 — 数据库初始化（下一步）
+### Step 1.2 — 数据库初始化（下一步） ✅
 
-- [ ] 实现 `db/models.py`（按 DEVELOPMENT_ROADMAP Schema 建所有表）
-- [ ] 实现 `db/database.py`（SQLAlchemy async engine，auto-create tables on startup）
-- [ ] 实现 `db/crud.py`（基础CRUD：创建project、查询project列表、插入conversation）
-- [ ] 编写数据库初始化测试脚本 `backend/test_db.py`
-- [ ] 验证：`data/sqlite/app.db` 创建成功，能插入和查询记录
+- [x] 实现 `db/models.py`（按 DEVELOPMENT_ROADMAP Schema 建所有表）
+- [x] 实现 `db/database.py`（SQLAlchemy async engine，auto-create tables on startup）
+- [x] 实现 `db/crud.py`（基础CRUD：创建project、查询project列表、插入conversation）
+- [x] 编写数据库初始化测试脚本 `backend/test_db.py`
+- [x] 验证：`data/sqlite/app.db` 创建成功，能插入和查询记录
 
 **完成后操作：**
 1. 将本文件 Step 1.2 状态改为 ✅
